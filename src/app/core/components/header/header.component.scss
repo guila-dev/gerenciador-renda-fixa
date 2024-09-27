@@ -1,0 +1,35 @@
+.header{
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 5px 30px;
+    gap: 10px;
+}
+
+
+.right-header-area{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.account-header-area{
+    display: flex;
+    gap: 5px;
+}
+
+.button-header-search-area{
+    background: #D52B1E;
+    border-radius: 3px;
+    border: 0;
+}
+
+.header-divider{
+    color: #00000017;
+    border: 1px solid;
+    width: 100vw;
+    position: absolute;
+    right: 0;
+}
+
