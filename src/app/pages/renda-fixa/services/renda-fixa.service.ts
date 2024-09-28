@@ -11,8 +11,8 @@ export class RendaFixaService {
   private httpClient = inject(HttpClient);
   private rendaFixaUrl = `${environment.andbankApi}/renda-fixa`
 
-  getAllRendaFixa(): Observable<RendaFixa>{
-    return this.httpClient.get<RendaFixa>(this.rendaFixaUrl);
+  getAllRendaFixa(): Observable<RendaFixa[]>{
+    return this.httpClient.get<RendaFixa[]>(this.rendaFixaUrl);
   }
 
 }
