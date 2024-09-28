@@ -1,12 +1,13 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {MatTable, MatTableModule} from '@angular/material/table';
 import { RendaFixa } from '../../models/renda-fixa.types';
 import { MatIconModule } from '@angular/material/icon';
 import rendaFixaListaMock from '../../../../mock/renda-fixa.mock';
 import { DatePipe } from '@angular/common';
+import { RendaFixaService } from '../../services/renda-fixa.service';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
-const rendaFixaLista = rendaFixaListaMock
 
 @Component({
   selector: 'app-renda-fixa-table',
@@ -17,9 +18,40 @@ const rendaFixaLista = rendaFixaListaMock
 })
 export class RendaFixaTableComponent {
   displayedColumns: string[] = ['id', 'descricao', 'dataValidade', 'investimentoMinimo', 'tipoProduto', 'indexador', 'acoes'];
-  dataSource = [...rendaFixaLista];
+  dataSource = [];
+  allRendaFixaData = []
+  pageIndex = 0;
+  pageSize = 10;
+  rendaFixaService = inject(RendaFixaService);
 
   @ViewChild(MatTable) table: MatTable<RendaFixa>;
+
+  constructor(){
+    this.rendaFixaService.getAllRendaFixa().subscribe(
+      data =>{
+        this.allRendaFixaData = data;
+        this.dataSource = [...data.slice(this.pageIndex, this.pageSize)];
+      }
+    );
+  }
+
+  nextPage(){
+    this.pageIndex++;
+    this.changePage();
+  }
+
+  prevPage(){
+    if(!this.pageIndex) return;
+    this.pageIndex--;
+    this.changePage();
+  }
+
+  changePage(){
+    const startPage =  this.pageIndex*this.pageSize;
+    const endPage = startPage+this.pageSize;
+    this.dataSource = [
+      ...this.allRendaFixaData.slice(startPage, endPage)];
+  }
 
   removerRendaFixa(rendaFixaId: number) {
     this.dataSource.pop();
