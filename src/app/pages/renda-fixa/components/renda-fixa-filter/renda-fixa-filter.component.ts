@@ -1,21 +1,23 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Indexador, TipoProduto } from '../../models/renda-fixa.types';
+import { Indexador } from '../../models/renda-fixa.types';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RendaFixaFilterService } from '../../services/renda-fixa-filter.service';
-import { delay } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { MatIconModule } from '@angular/material/icon';
+import { AsyncPipe } from '@angular/common';
+import { EMPTY, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-renda-fixa-filter',
   standalone: true,
   imports: [ MatFormFieldModule,MatInputModule,
     MatSelectModule, MatButtonModule,
-    ReactiveFormsModule, MatIconModule],
+    ReactiveFormsModule, MatIconModule, AsyncPipe],
   templateUrl: './renda-fixa-filter.component.html',
   animations: [
     trigger('slideInOut', [
@@ -34,35 +36,46 @@ export class RendaFixaFilterComponent implements OnInit {
   fb: FormBuilder = inject(FormBuilder);
   filterService = inject(RendaFixaFilterService);
   openFilter = false;
-
-  tiposProduto: TipoProduto[] = [
-    { id: 1, nome: 'CDB' },
-    { id: 2, nome: 'Debênture' },
-    { id: 3, nome: 'Tesouro direto' }
-  ];
-
-  indexadores: Indexador[] = [
-    { id: 1, nome: 'CDI' },
-    { id: 2, nome: 'SELIC' },
-    { id: 3, nome: 'IPCA +' }
-  ];
+  tiposProduto$ = this.filterService.getTiposProduto();
+  indexadores$: Observable<any> = new Observable<Indexador[]>();
 
   ngOnInit(): void {
     this.filterForm = this.fb.group({
       id: [null],
       descricao: [''],
       tipoProdutoId: [null],
-      indexadorId: [null]
+      indexadorId: {value: null, disabled: true}
     });
 
     this.filterForm.valueChanges
-    .pipe(delay(200))
+    .pipe(debounceTime(300))
     .subscribe(filterChange =>{
       console.log(filterChange);
       this.filterService.setFilter(filterChange);
 
     })
+    this.getIndexadores$();
   }
+
+  getIndexadores$(): void{
+     this.indexadores$ = this.filterForm.controls['tipoProdutoId']
+      .valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap<number, Observable<Indexador[]>>((tipoProdutoId: number) =>{
+          this.filterForm.controls['indexadorId'].setValue('');
+          if(!tipoProdutoId){
+            this.filterForm.controls['indexadorId'].disable()
+            return EMPTY
+          }
+          this.filterForm.controls['indexadorId'].enable()
+           return this.filterService.getIndexadores(tipoProdutoId);
+        })
+      )
+      this.indexadores$.subscribe()
+  }
+
   toggleFilter() {
     this.openFilter = !this.openFilter;
   }
