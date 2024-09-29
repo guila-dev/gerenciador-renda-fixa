@@ -66,4 +66,7 @@ export class RendaFixaFilterComponent implements OnInit {
   toggleFilter() {
     this.openFilter = !this.openFilter;
   }
+  clearFilter(){
+    this.filterForm.reset();
+  }
 }
