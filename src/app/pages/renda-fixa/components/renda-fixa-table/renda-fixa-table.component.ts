@@ -8,6 +8,8 @@ import { RendaFixaService } from '../../services/renda-fixa.service';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { RendaFixaFilterService } from '../../services/renda-fixa-filter.service';
+import { RendaFixaDeleteDialogComponent } from './renda-fixa-delete-dialog/renda-fixa-delete-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -23,7 +25,7 @@ export class RendaFixaTableComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<RendaFixa>();
   private rendaFixaService = inject(RendaFixaService);
   private filterService = inject(RendaFixaFilterService);
-   
+  private dialog = inject(MatDialog);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatTable) table: MatTable<RendaFixa>;
   @ViewChild(MatSort) sort: MatSort;
@@ -41,8 +43,22 @@ export class RendaFixaTableComponent implements AfterViewInit {
     })
   }
 
-
   removerRendaFixa(rendaFixaId: number) {
+    const dialogRef = this.dialog.open(RendaFixaDeleteDialogComponent, {
+      height: '200px',
+      width: '400px',
+    });
+    dialogRef.afterClosed().subscribe(
+      answer =>{
+        if(answer){
+          this.rendaFixaService.deleteRendaFixa(rendaFixaId).subscribe(
+            () =>{
+              this.filterService.notifyAll();
+            }
+          );
+        }
+      }
+    )
   }
 
   editarRendaFixa(rendaFixaId: number) {

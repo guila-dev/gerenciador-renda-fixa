@@ -28,6 +28,10 @@ export class RendaFixaService {
     })
     return params;
   }
+
+  deleteRendaFixa(rendaFixaId: number){
+    return this.httpClient.delete<RendaFixa[]>(`${this.rendaFixaUrl}/${rendaFixaId}`);
+  }
 }
 
 
