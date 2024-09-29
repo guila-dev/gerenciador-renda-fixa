@@ -32,6 +32,14 @@ export class RendaFixaService {
   deleteRendaFixa(rendaFixaId: number){
     return this.httpClient.delete<RendaFixa[]>(`${this.rendaFixaUrl}/${rendaFixaId}`);
   }
+
+  updateRendaFixa(updatedRendaFixa: RendaFixa){
+    return this.httpClient.put<RendaFixa[]>(this.rendaFixaUrl, {...updatedRendaFixa});
+  }
+
+  createRendaFixa(newRendaFixa: RendaFixa){
+    return this.httpClient.post<RendaFixa[]>(this.rendaFixaUrl, {...newRendaFixa});
+  }
 }
 
 

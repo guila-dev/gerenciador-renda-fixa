@@ -1,0 +1,48 @@
+<h1 mat-dialog-title>{{ data ? 'Atualizar Renda Fixa' : 'Criar nova Renda Fixa' }}</h1>
+<div mat-dialog-content>
+  <form class="upsert-form" [formGroup]="rendaFixaForm">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Descrição</mat-label>
+      <input matInput formControlName="descricao" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Data de Validade</mat-label>
+      <input matInput formControlName="dataValidade" type="date" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Investimento Mínimo</mat-label>
+      <input matInput formControlName="investimentoMinimo" type="number" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Tipo Produto</mat-label>
+        <mat-select  formControlName="tipoProdutoId" name="tipoProdutoId">
+            @for (tipoProduto of tiposProduto$ | async; track tipoProduto){
+                <mat-option [value]="tipoProduto.id">
+                    {{ tipoProduto.nome }}
+                 </mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" >
+        <mat-label>Indexador</mat-label>
+        <mat-select formControlName="indexadorId" name="indexadorId">
+            @for (indexador of indexadores; track indexador){
+                <mat-option [value]="indexador.id">
+                    {{ indexador.nome }}
+                 </mat-option>
+            }
+        </mat-select>
+        </mat-form-field>
+
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-button color="primary" (click)="onSave()" [disabled]="!rendaFixaForm.valid">
+    Salvar
+  </button>
+</div>

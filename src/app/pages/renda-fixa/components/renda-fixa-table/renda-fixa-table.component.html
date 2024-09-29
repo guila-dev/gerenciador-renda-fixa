@@ -1,3 +1,7 @@
+  <button mat-fab extended class="new-item-btn" color="warn" (click)="createRendaFixa()">
+      <mat-icon fontIcon="add"></mat-icon>
+      Novo Item
+  </button>
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
     <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
@@ -31,12 +35,12 @@
 
     <ng-container matColumnDef="acoes">
         <th mat-header-cell *matHeaderCellDef>Ações</th>
-        <td mat-cell *matCellDef="let rendaFixa" style="display: flex; min-height: 52px;">
+        <td mat-cell *matCellDef="let rendaFixa">
 
             <button mat-button
                 color="primary"
                 aria-label="Editar Renda Fixa" 
-                (click)="editarRendaFixa(rendaFixa.id)">
+                (click)="editarRendaFixa(rendaFixa)">
                 <mat-icon>edit</mat-icon>
             </button>
 
