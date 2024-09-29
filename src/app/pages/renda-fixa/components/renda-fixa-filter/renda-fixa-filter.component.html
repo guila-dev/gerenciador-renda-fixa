@@ -1,0 +1,59 @@
+<div class="filter-container">
+      <button mat-fab extended class="filter-toggle" color="warn" (click)="toggleFilter()">
+        @if(!openFilter){
+            <ng-container>
+                <mat-icon fontIcon="filter_alt"></mat-icon>
+                Abrir Filtro
+            </ng-container>
+        }
+        @else{
+            <ng-container>
+
+                <mat-icon fontIcon="filter_alt_off"></mat-icon>
+                Fechar Filtro
+            </ng-container>
+        }
+    </button>
+    @if(openFilter){
+    <form [@slideInOut]="openFilter" [formGroup]="filterForm" class="filter-form">
+        <mat-form-field appearance="outline">
+        <mat-label>ID</mat-label>
+        <input matInput type="number" formControlName="id" name="id">
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline">
+        <mat-label>Descrição</mat-label>
+        <input matInput type="text" formControlName="descricao" name="descricao">
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline">
+        <mat-label>Tipo Produto</mat-label>
+        <mat-select  formControlName="tipoProdutoId" name="tipoProdutoId">
+            @for (tipoProduto of tiposProduto; track tipoProduto){
+            <mat-option [value]="tipoProduto.id">
+                {{ tipoProduto.nome }}
+                </mat-option>
+            }
+            
+        
+        </mat-select>
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline">
+        <mat-label>Indexador</mat-label>
+        <mat-select formControlName="indexadorId" name="indexadorId">
+            @for (indexador of indexadores; track indexador){
+                <mat-option [value]="indexador.id">
+                    {{ indexador.nome }}
+                </mat-option>
+            }
+        
+        </mat-select>
+        </mat-form-field>
+    
+    
+    </form>
+    }
+  
+</div>
+

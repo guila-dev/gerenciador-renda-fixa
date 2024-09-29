@@ -9,8 +9,8 @@ export type RendaFixa = {
     indexador: Indexador
 }
 
-export type RendaFixaQuery = Pick<RendaFixa,
- "id" | "descricao" | "tipoProdutoId" | "indexadorId" >
+export type RendaFixaFilter = Partial<Pick<RendaFixa,
+ "id" | "descricao" | "tipoProdutoId" | "indexadorId" >>
 
 export type TipoProduto = {
     id: number,
