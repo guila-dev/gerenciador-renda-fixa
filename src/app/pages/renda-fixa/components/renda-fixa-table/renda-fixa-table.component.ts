@@ -10,6 +10,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { RendaFixaFilterService } from '../../services/renda-fixa-filter.service';
 import { RendaFixaDeleteDialogComponent } from './renda-fixa-delete-dialog/renda-fixa-delete-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { RendaFixaUpsertDialogComponent } from './renda-fixa-upsert-dialog/renda-fixa-upsert-dialog.component';
 
 
 @Component({
@@ -61,6 +62,42 @@ export class RendaFixaTableComponent implements AfterViewInit {
     )
   }
 
-  editarRendaFixa(rendaFixaId: number) {
+  editarRendaFixa(rendaFixa: RendaFixa) {
+    const dialogRef = this.dialog.open(RendaFixaUpsertDialogComponent, {
+      height: '550px',
+      width: '400px',
+      data: rendaFixa
+    });
+    dialogRef.afterClosed().subscribe(
+      (answer) =>{
+          if(answer?.value){
+            this.rendaFixaService.updateRendaFixa(answer?.value).subscribe(
+              ()=>{
+                this.filterService.notifyAll();
+              }
+            )
+          }
+      }
+    )
   }
+
+  
+  createRendaFixa() {
+    const dialogRef = this.dialog.open(RendaFixaUpsertDialogComponent, {
+      height: '550px',
+      width: '400px',
+    });
+    dialogRef.afterClosed().subscribe(
+      (answer) =>{
+          if(answer?.value){
+            this.rendaFixaService.createRendaFixa(answer?.value).subscribe(
+              ()=>{
+                this.filterService.notifyAll();
+              }
+            )
+          }
+      }
+    )
+  }
+
 }

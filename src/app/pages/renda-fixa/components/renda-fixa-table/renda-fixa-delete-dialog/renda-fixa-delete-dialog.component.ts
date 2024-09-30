@@ -9,5 +9,5 @@ import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, Ma
   templateUrl: './renda-fixa-delete-dialog.component.html',
   styleUrl: './renda-fixa-delete-dialog.component.scss'
 })
-export class RendaFixaDeleteDialogComponent {
+export class RendaFixaDeleteDialogComponent{
 }

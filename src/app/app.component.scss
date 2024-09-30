@@ -1,6 +1,5 @@
 .center-main-content{
     display: flex;
-    justify-content: center;
 }
 .main-container{
     width: 100vh;
@@ -9,5 +8,8 @@
 @media (min-width: 1200px){
     .main-container{
         width: 1200px;
+    }
+    .center-main-content{
+        justify-content: center;
     }
 }

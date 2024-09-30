@@ -1,16 +1,15 @@
 <div class="filter-container">
-      <button mat-fab extended class="filter-toggle" color="warn" (click)="toggleFilter()">
+      <button mat-flat-button class="filter-toggle" color="warn" (click)="toggleFilter()">
         @if(!openFilter){
             <ng-container>
-                <mat-icon fontIcon="filter_alt"></mat-icon>
-                Abrir Filtro
+                <mat-icon class="filter-toggle-icon" fontIcon="filter_alt"></mat-icon>
+                ABRIR FILTROS
             </ng-container>
         }
         @else{
             <ng-container>
-
-                <mat-icon fontIcon="filter_alt_off"></mat-icon>
-                Fechar Filtro
+                <mat-icon class="filter-toggle-icon" fontIcon="filter_alt_off"></mat-icon>
+                FECHAR FILTROS
             </ng-container>
         }
     </button>

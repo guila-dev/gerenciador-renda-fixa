@@ -1,6 +1,7 @@
-  <button mat-fab extended class="new-item-btn" color="warn" (click)="createRendaFixa()">
+<div class="renda-fixa-table-container">
+  <button mat-flat-button class="new-item-btn" (click)="createRendaFixa()">
       <mat-icon fontIcon="add"></mat-icon>
-      Novo Item
+      NOVO ITEM
   </button>
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
     <ng-container matColumnDef="id">
@@ -58,7 +59,7 @@
   </table>
 
   <mat-paginator 
+  class="paginator"
   [pageSizeOptions]="[10, 20, 50, 100]">
   </mat-paginator>
-
-  
+</div>

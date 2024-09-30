@@ -1,0 +1,17 @@
+.renda-fixa-table-container{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+.new-item-btn{
+    background-color: #D52B1E;
+    color: white;
+    width: 180px;
+    height: 45px;
+    align-self: center;
+}
+
+.paginator{
+    background-color: #f0f0f0;
+    border-radius: 0 0 7px 7px;
+}

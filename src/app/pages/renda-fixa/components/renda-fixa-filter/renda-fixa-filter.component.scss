@@ -6,11 +6,21 @@
 
 .filter-container{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 5px;
-    height: 120px;
+    min-height: 76px;
 }
 
 .filter-toggle{
     width: fit-content;
+    background-color: #c5c5c5;
+
+    &-icon{
+        position: relative;
+        top: 8px;
+        font-size: 20px;
+        margin-right: 4px;
+    }
 }
+
