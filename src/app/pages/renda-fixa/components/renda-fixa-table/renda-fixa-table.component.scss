@@ -1,17 +1,40 @@
 .renda-fixa-table-container{
     display: flex;
-    gap: 10px;
     flex-direction: column;
 }
+
 .new-item-btn{
-    background-color: #D52B1E;
-    color: white;
     width: 180px;
-    height: 45px;
+    height: 44px;
     align-self: center;
+    margin-bottom: 16px ;
 }
 
 .paginator{
     background-color: #f0f0f0;
-    border-radius: 0 0 7px 7px;
+    box-shadow: var(--mat-app-elevation-shadow-level-8);
+    clip-path: inset(0px -20px -20px -20px);
+}
+
+.rounded-border-radius{
+    &-bottom{
+        border-radius: 0 0 5px 5px;
+    }
+    &-top{
+        border-radius: 5px 5px 0 0;
+    }
+}
+
+
+@media (max-width: 740px) {
+    .table-responsive{
+        
+    display: block;
+    width: 100vw;
+    height: 800px;
+    overflow: scroll;
+    
+}
+
+
 }

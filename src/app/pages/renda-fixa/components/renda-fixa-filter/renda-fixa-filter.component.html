@@ -7,8 +7,9 @@
             </ng-container>
         }
         @else{
+
             <ng-container>
-                <mat-icon class="filter-toggle-icon" fontIcon="filter_alt_off"></mat-icon>
+                <mat-icon class="filter-toggle-icon" fontIcon="cancel"></mat-icon>
                 FECHAR FILTROS
             </ng-container>
         }
@@ -56,8 +57,8 @@
         </mat-select>
         </mat-form-field>
         <button mat-fab extended class="filter-toggle" color="warn" (click)="clearFilter()">
-            <mat-icon fontIcon="backspace"></mat-icon>
-            Limpar
+            <mat-icon fontIcon="filter_alt_off"></mat-icon>
+            LIMPAR FILTROS
         </button>
     
     </form>

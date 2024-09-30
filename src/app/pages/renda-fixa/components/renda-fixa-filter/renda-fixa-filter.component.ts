@@ -50,7 +50,6 @@ export class RendaFixaFilterComponent implements OnInit {
     this.filterForm.valueChanges
     .pipe(debounceTime(300))
     .subscribe(filterChange =>{
-      console.log(filterChange);
       this.filterService.setFilter(filterChange);
 
     })
