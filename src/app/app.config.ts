@@ -7,6 +7,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { translatePtBrPaginator } from './utils/translatePaginator.util';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), 
@@ -18,6 +20,10 @@ export const appConfig: ApplicationConfig = {
     ),
     provideNativeDateAdapter(),
     {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
+    {
+      provide: MatPaginatorIntl,
+      useValue: translatePtBrPaginator()
+    }
     
   ]
 };
