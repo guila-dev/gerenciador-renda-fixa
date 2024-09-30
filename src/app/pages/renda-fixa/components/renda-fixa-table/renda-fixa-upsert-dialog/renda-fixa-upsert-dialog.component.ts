@@ -9,6 +9,7 @@ import { debounceTime, distinctUntilChanged, EMPTY, Observable, switchMap } from
 import { Indexador } from '../../../models/renda-fixa.types';
 import { RendaFixaFilterService } from '../../../services/renda-fixa-filter.service';
 import { AsyncPipe } from '@angular/common';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-renda-fixa-upsert-dialog',
@@ -19,7 +20,8 @@ import { AsyncPipe } from '@angular/common';
     MatButtonModule,
     ReactiveFormsModule,
     MatSelectModule,
-    AsyncPipe
+    AsyncPipe,
+    MatDatepickerModule
   ],
   templateUrl: './renda-fixa-upsert-dialog.component.html',
   styleUrl: './renda-fixa-upsert-dialog.component.scss'
@@ -45,14 +47,13 @@ export class RendaFixaUpsertDialogComponent {
       dataValidade: [data?.dataValidade || '', Validators.required],
       investimentoMinimo: [data?.investimentoMinimo || 0, [Validators.required, Validators.min(0)]],
       tipoProdutoId: [data?.tipoProdutoId || null, Validators.required],
-      indexadorId: [data?.indexadorId || null, Validators.required]
+      indexadorId: [{value: data?.indexadorId || null, disabled: true}, Validators.required]
     });
     this.getIndexadores();
     if(data?.tipoProdutoId){
       this.rendaFixaForm.controls['tipoProdutoId'].setValue(data.tipoProdutoId);
     }
   }
-
 
   getIndexadores(): void{
     this.indexadores$ = this.rendaFixaForm.controls['tipoProdutoId']
@@ -61,7 +62,7 @@ export class RendaFixaUpsertDialogComponent {
        debounceTime(300),
        distinctUntilChanged(),
        switchMap<number, Observable<Indexador[]>>((tipoProdutoId: number) =>{
-         if(!tipoProdutoId){
+          if(!tipoProdutoId){
            this.rendaFixaForm.controls['indexadorId'].disable()
            return EMPTY
          }
