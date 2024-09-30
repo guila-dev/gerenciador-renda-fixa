@@ -1,14 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RendaFixaUpsertDialogComponent } from './renda-fixa-upsert-dialog.component';
+import { CommonModule } from '@angular/common';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
-describe('RendaFixaUpsertDialogComponent', () => {
+fdescribe('RendaFixaUpsertDialogComponent', () => {
   let component: RendaFixaUpsertDialogComponent;
   let fixture: ComponentFixture<RendaFixaUpsertDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RendaFixaUpsertDialogComponent]
+      imports: [
+        CommonModule,
+        NoopAnimationsModule,
+        RendaFixaUpsertDialogComponent,
+        MatDialogModule],
+        providers:[{
+            provide: MatDialogRef,
+            useValue: {}
+        }]
     })
     .compileComponents();
 

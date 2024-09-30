@@ -28,13 +28,14 @@
 
 @media (max-width: 740px) {
     .table-responsive{
-        
-    display: block;
-    width: 100vw;
-    height: 800px;
-    overflow: scroll;
-    
-}
+        display: block;
+        width: 100vw;
+        height: 800px;
+        overflow: scroll;
+    }
+    .new-item-btn{
+        align-self: flex-start;
+    }
 
 
 }
